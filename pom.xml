@@ -4,6 +4,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <groupId>cn.weiguangfu</groupId>
+    <artifactId>springfox-swagger2-plus</artifactId>
+    <packaging>pom</packaging>
+    <version>${swagger.version}${project.version}</version>
+
+    <url>https://github.com/weiguangfu/springfox-swagger2-plus</url>
+    <inceptionYear>2020</inceptionYear>
+
     <properties>
         <project.version>-1-beta1</project.version>
         <swagger.version>2.7.0</swagger.version>
@@ -14,10 +22,25 @@
         <lombok.version>1.18.6</lombok.version>
     </properties>
 
-    <groupId>cn.weiguangfu</groupId>
-    <artifactId>springfox-swagger2-plus</artifactId>
-    <packaging>jar</packaging>
-    <version>${swagger.version}${project.version}</version>
+    <scm>
+        <connection>scm:git:https://github.com/weiguangfu/springfox-swagger2-plus.git</connection>
+        <developerConnection>scm:git:https://github.com/weiguangfu/springfox-swagger2-plus.git</developerConnection>
+        <url>git:https://github.com/weiguangfu/springfox-swagger2-plus.git</url>
+    </scm>
+
+    <developers>
+        <developer>
+            <name>weiguangfu</name>
+            <email>weiguangfu520@163.com</email>
+        </developer>
+    </developers>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
 
     <dependencies>
         <!-- swagger2 -->
@@ -31,32 +54,13 @@
     <distributionManagement>
         <snapshotRepository>
             <id>sonatype-nexus-snapshots</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </snapshotRepository>
         <repository>
             <id>sonatype-nexus-staging</id>
             <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
     </distributionManagement>
-
-
-    <licenses>
-        <license>
-            <name>The Apache Software License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-        </license>
-    </licenses>
-    <scm>
-        <connection>scm:git:https://github.com/weiguangfu/springfox-swagger2-plus.git</connection>
-        <developerConnection>scm:git:https://github.com/weiguangfu/springfox-swagger2-plus.git</developerConnection>
-        <url>git:https://github.com/weiguangfu/springfox-swagger2-plus.git</url>
-    </scm>
-    <developers>
-        <developer>
-            <name>WeiGuangFu</name>
-            <email>weiguangfu520@163.com</email>
-        </developer>
-    </developers>
 
     <build>
         <finalName>${project.name}</finalName>
@@ -83,6 +87,17 @@
                     </execution>
                 </executions>
             </plugin>
+            <!--<plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.6.7</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>sonatype-nexus-snapshots</serverId>
+                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                </configuration>
+            </plugin>-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-scm-plugin</artifactId>
@@ -117,7 +132,7 @@
                 </dependencies>
             </plugin>
             <!-- 生产源码包的插件, 暂时屏蔽 -->
-            <!--<plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
                 <version>3.1.0</version>
@@ -130,9 +145,9 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>-->
+            </plugin>
             <!-- 以下为javadoc生产的插件, 暂时屏蔽 -->
-            <!--<plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>2.9.1</version>
@@ -151,8 +166,21 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>-->
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>1.6</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
-
 </project>
