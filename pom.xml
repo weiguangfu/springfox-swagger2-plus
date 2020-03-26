@@ -6,8 +6,11 @@
 
     <groupId>cn.weiguangfu</groupId>
     <artifactId>springfox-swagger2-plus</artifactId>
+    <name>${project.artifactId}</name>
     <packaging>pom</packaging>
     <version>${swagger.version}${project.version}</version>
+
+    <description>Enhancement project of swagger2 project in spring boot or spring cloud framework.</description>
 
     <url>https://github.com/weiguangfu/springfox-swagger2-plus</url>
     <inceptionYear>2020</inceptionYear>
