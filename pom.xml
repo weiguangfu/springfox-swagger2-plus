@@ -28,6 +28,36 @@
         </dependency>
     </dependencies>
 
+    <distributionManagement>
+        <snapshotRepository>
+            <id>sonatype-nexus-snapshots</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+        </snapshotRepository>
+        <repository>
+            <id>sonatype-nexus-staging</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+    <scm>
+        <connection>scm:git:https://github.com/weiguangfu/springfox-swagger2-plus.git</connection>
+        <developerConnection>scm:git:https://github.com/weiguangfu/springfox-swagger2-plus.git</developerConnection>
+        <url>git:https://github.com/weiguangfu/springfox-swagger2-plus.git</url>
+    </scm>
+    <developers>
+        <developer>
+            <name>WeiGuangFu</name>
+            <email>weiguangfu520@163.com</email>
+        </developer>
+    </developers>
+
     <build>
         <finalName>${project.name}</finalName>
         <plugins>
