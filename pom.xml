@@ -14,7 +14,7 @@
         <lombok.version>1.18.6</lombok.version>
     </properties>
 
-    <groupId>com.weiguangfu</groupId>
+    <groupId>cn.weiguangfu</groupId>
     <artifactId>springfox-swagger2-plus</artifactId>
     <packaging>jar</packaging>
     <version>${swagger.version}${project.version}</version>
