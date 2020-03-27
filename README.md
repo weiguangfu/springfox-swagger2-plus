@@ -3,7 +3,7 @@
 作者: 魏广甫 
 
 
-[![Build Status](https://travis-ci.org/weiguangfu/springfox-swagger2-plus.svg?branch=master)](https://travis-ci.org/weiguangfu/springfox-swagger2-plus)
+[![Build Status](https://travis-ci.org/weiguangfu/springfox-swagger2-plus.svg?branch=2.7.0-1-beta1)](https://travis-ci.org/weiguangfu/springfox-swagger2-plus)
 [![Maven central](https://maven-badges.herokuapp.com/maven-central/cn.weiguangfu/springfox-swagger2-plus/badge.svg)](https://search.maven.org/artifact/cn.weiguangfu/springfox-swagger2-plus/2.7.0-1-beta1/pom)
 [![License](http://img.shields.io/:license-apache-brightgreen.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
 
