@@ -134,7 +134,7 @@
                     </dependency>
                 </dependencies>
             </plugin>
-            <!-- 生产源码包的插件, 暂时屏蔽 -->
+            <!-- 生产源码包的插件 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
@@ -149,7 +149,7 @@
                     </execution>
                 </executions>
             </plugin>
-            <!-- 以下为javadoc生产的插件, 暂时屏蔽 -->
+            <!-- 以下为javadoc生产的插件 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
