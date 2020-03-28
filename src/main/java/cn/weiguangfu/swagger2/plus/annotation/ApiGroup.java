@@ -1,6 +1,6 @@
-package com.weiguangfu.swagger2.plus.annotation;
+package com.weiguangfu.swagger2.annotation;
 
-import com.weiguangfu.swagger2.plus.enums.ApiExecutionEnum;
+import com.weiguangfu.swagger2.enums.ApiExecutionEnum;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -23,13 +23,13 @@ public @interface ApiGroup {
 
     /**
      * 请求参数执行动作, 增强时进行处理的动作(默认为包含动作). 详细查询动作枚举在
-     * {@link com.weiguangfu.swagger2.plus.enums.ApiExecutionEnum}
+     * {@link ApiExecutionEnum}
      */
     ApiExecutionEnum requestExecution() default ApiExecutionEnum.INCLUDE;
 
     /**
      * 响应参数执行动作, 增强时进行处理的动作(默认为包含动作). 详细查询动作枚举在
-     * {@link com.weiguangfu.swagger2.plus.enums.ApiExecutionEnum}
+     * {@link ApiExecutionEnum}
      */
     ApiExecutionEnum responseExecution() default ApiExecutionEnum.INCLUDE;
 }

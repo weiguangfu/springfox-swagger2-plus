@@ -1,4 +1,4 @@
-package com.weiguangfu.swagger2.plus.enums;
+package com.weiguangfu.swagger2.enums;
 
 /**
  * API参数执行动作枚举类

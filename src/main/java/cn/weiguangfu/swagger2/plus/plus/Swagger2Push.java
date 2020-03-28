@@ -1,4 +1,4 @@
-package com.weiguangfu.swagger2.plus.plus;
+package cn.weiguangfu.swagger2.plus.plus;
 
 import springfox.documentation.schema.Model;
 import springfox.documentation.service.ApiDescription;

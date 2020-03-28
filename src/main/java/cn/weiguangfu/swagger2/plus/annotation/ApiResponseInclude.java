@@ -1,4 +1,4 @@
-package com.weiguangfu.swagger2.plus.annotation;
+package com.weiguangfu.swagger2.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
