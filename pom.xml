@@ -7,7 +7,7 @@
     <groupId>cn.weiguangfu</groupId>
     <artifactId>springfox-swagger2-plus</artifactId>
     <name>${project.artifactId}</name>
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
     <version>${swagger.version}${project.version}</version>
 
     <description>Enhancement project of swagger2 project in spring boot or spring cloud framework.</description>
@@ -16,7 +16,7 @@
     <inceptionYear>2020</inceptionYear>
 
     <properties>
-        <project.version>-1-beta1</project.version>
+        <project.version>-1-beta2</project.version>
         <swagger.version>2.7.0</swagger.version>
         <java.version>1.8</java.version>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -50,6 +50,12 @@
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
+            <version>${swagger.version}</version>
+        </dependency>
+        <!-- swagger-ui -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
             <version>${swagger.version}</version>
         </dependency>
     </dependencies>
