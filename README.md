@@ -79,8 +79,8 @@ public class Swagger2PlusController {
     /**
      * @ApiGroup设置请求与响应的参数分组, 注解参数如下
      * 1. groups: 进行分组区别的Class对象.
-     * 2. requestExecution: 请求执行方式 参见{@link ApiExecutionEnum}
-     * 3. responseExecution: 响应执行方式 参见{@link ApiExecutionEnum}
+     * 2. requestExecution: 请求执行方式 参见{@link cn.weiguangfu.swagger2.plus.enums.ApiExecutionEnum}
+     * 3. responseExecution: 响应执行方式 参见{@link cn.weiguangfu.swagger2.plus.enums.ApiExecutionEnum}
      */
     @PostMapping("/demo")
     @ApiOperation("swagger2plus测试方法")

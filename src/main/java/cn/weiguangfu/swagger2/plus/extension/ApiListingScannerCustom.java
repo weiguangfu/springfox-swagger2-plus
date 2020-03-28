@@ -1,13 +1,14 @@
 package cn.weiguangfu.swagger2.plus.extension;
 
+import cn.weiguangfu.swagger2.plus.plus.DefaultSwagger2Push;
+import cn.weiguangfu.swagger2.plus.plus.Swagger2Push;
 import com.google.common.base.Joiner;
 import com.google.common.base.Predicate;
 import com.google.common.base.Splitter;
 import com.google.common.collect.LinkedListMultimap;
 import com.google.common.collect.Multimap;
-import cn.weiguangfu.swagger2.plus.plus.Swagger2Push;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Primary;
 import springfox.documentation.PathProvider;
 import springfox.documentation.builders.ApiListingBuilder;
@@ -32,7 +33,8 @@ import static springfox.documentation.spi.service.contexts.Orderings.methodCompa
 import static springfox.documentation.spi.service.contexts.Orderings.resourceGroupComparator;
 
 @Primary
-@ComponentScan(basePackages = {"com.weiguangfu.swagger2.plus.plus"})
+@Import(DefaultSwagger2Push.class)
+//@ComponentScan(basePackages = {"cn.weiguangfu.swagger2.plus.plus"})
 @SuppressWarnings("all")
 public class ApiListingScannerCustom extends ApiListingScanner {
 
