@@ -1,6 +1,6 @@
 package cn.weiguangfu.swagger2.plus.annotation;
 
-import com.weiguangfu.swagger2.plus.extension.ApiListingScannerCustom;
+import cn.weiguangfu.swagger2.plus.extension.ApiListingScannerCustom;
 import org.springframework.context.annotation.Import;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
