@@ -16,7 +16,7 @@
 ### 引入Maven项目
 ```
 <dependency>
-   <groupId>com.weiguangfu</groupId>
+   <groupId>cn.weiguangfu</groupId>
    <artifactId>springfox-swagger2-plus</artifactId>
    <version>2.7.0-1-beta1</version>
 </dependency>
