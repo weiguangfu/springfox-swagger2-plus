@@ -1,4 +1,4 @@
-package com.weiguangfu.swagger2.plus.factory;
+package cn.weiguangfu.swagger2.plus.factory;
 
 import com.google.common.base.Optional;
 import springfox.documentation.schema.ModelRef;

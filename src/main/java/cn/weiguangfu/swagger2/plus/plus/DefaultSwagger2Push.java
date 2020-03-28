@@ -1,15 +1,16 @@
-package com.weiguangfu.swagger2.plus.plus;
+package cn.weiguangfu.swagger2.plus.plus;
 
+import cn.weiguangfu.swagger2.plus.annotation.*;
+import cn.weiguangfu.swagger2.plus.enums.ResponseStatusEnum;
+import cn.weiguangfu.swagger2.plus.factory.ModelFactory;
+import cn.weiguangfu.swagger2.plus.factory.ModelPropertyFactory;
+import cn.weiguangfu.swagger2.plus.factory.ModelRefFactory;
+import cn.weiguangfu.swagger2.plus.factory.OperationFactory;
 import com.google.common.base.Optional;
 import com.weiguangfu.swagger2.plus.annotation.*;
 import com.weiguangfu.swagger2.plus.enums.ApiExecutionEnum;
 import com.weiguangfu.swagger2.plus.enums.ApiModelTypeEnum;
-import com.weiguangfu.swagger2.plus.enums.ResponseStatusEnum;
-import com.weiguangfu.swagger2.plus.factory.ModelFactory;
-import com.weiguangfu.swagger2.plus.factory.ModelPropertyFactory;
-import com.weiguangfu.swagger2.plus.factory.ModelRefFactory;
-import com.weiguangfu.swagger2.plus.factory.OperationFactory;
-import com.weiguangfu.swagger2.plus.util.ObjectUtil;
+import cn.weiguangfu.swagger2.plus.util.ObjectUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;

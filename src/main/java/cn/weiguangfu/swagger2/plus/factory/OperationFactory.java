@@ -1,6 +1,6 @@
-package com.weiguangfu.swagger2.plus.factory;
+package cn.weiguangfu.swagger2.plus.factory;
 
-import com.weiguangfu.swagger2.plus.util.ObjectUtil;
+import cn.weiguangfu.swagger2.plus.util.ObjectUtil;
 import springfox.documentation.schema.ModelReference;
 import springfox.documentation.service.Operation;
 import springfox.documentation.service.Parameter;

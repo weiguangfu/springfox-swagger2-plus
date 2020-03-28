@@ -1,4 +1,4 @@
-package com.weiguangfu.swagger2.plus.enums;
+package cn.weiguangfu.swagger2.plus.enums;
 
 /**
  * 响应状态码枚举类

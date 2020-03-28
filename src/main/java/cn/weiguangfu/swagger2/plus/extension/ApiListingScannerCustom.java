@@ -1,11 +1,11 @@
-package com.weiguangfu.swagger2.plus.extension;
+package cn.weiguangfu.swagger2.plus.extension;
 
 import com.google.common.base.Joiner;
 import com.google.common.base.Predicate;
 import com.google.common.base.Splitter;
 import com.google.common.collect.LinkedListMultimap;
 import com.google.common.collect.Multimap;
-import com.weiguangfu.swagger2.plus.plus.Swagger2Push;
+import cn.weiguangfu.swagger2.plus.plus.Swagger2Push;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Primary;

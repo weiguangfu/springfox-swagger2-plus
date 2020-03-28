@@ -1,4 +1,4 @@
-package com.weiguangfu.swagger2.plus.enums;
+package cn.weiguangfu.swagger2.plus.enums;
 
 /**
  * API文档定义类型(请求定义, 响应定义...)

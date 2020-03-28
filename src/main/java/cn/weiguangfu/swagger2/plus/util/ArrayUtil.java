@@ -1,4 +1,4 @@
-package com.weiguangfu.swagger2.plus.util;
+package cn.weiguangfu.swagger2.plus.util;
 
 import java.util.Objects;
 
