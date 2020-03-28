@@ -1,6 +1,6 @@
-package com.weiguangfu.swagger2.annotation;
+package cn.weiguangfu.swagger2.plus.annotation;
 
-import com.weiguangfu.swagger2.enums.ApiExecutionEnum;
+import cn.weiguangfu.swagger2.plus.enums.ApiExecutionEnum;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

@@ -16,14 +16,9 @@
 ### 引入Maven项目
 ```
 <dependency>
-   <groupId>com.weiguangfu</groupId>
+   <groupId>cn.weiguangfu</groupId>
    <artifactId>springfox-swagger2-plus</artifactId>
    <version>2.7.0-1-beta2</version>
-</dependency>
-<dependency>
-    <groupId>io.springfox</groupId>
-    <artifactId>springfox-swagger-ui</artifactId>
-    <version>2.7.0</version>
 </dependency>
 ```
 
@@ -47,7 +42,7 @@ public class Swagger2Config {
                         .build())
                 .directModelSubstitute(Byte.class, Integer.class)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.weiguangfu.swagger2.plus.demo.controller"))
+                .apis(RequestHandlerSelectors.basePackage("cn.weiguangfu.swagger2.plus.demo.controller"))
                 .paths(PathSelectors.any())
                 .build();
     }
@@ -84,8 +79,8 @@ public class Swagger2PlusController {
     /**
      * @ApiGroup设置请求与响应的参数分组, 注解参数如下
      * 1. groups: 进行分组区别的Class对象.
-     * 2. requestExecution: 请求执行方式 参见{@link com.weiguangfu.swagger2.plus.enums.ApiExecutionEnum}
-     * 3. responseExecution: 响应执行方式 参见{@link com.weiguangfu.swagger2.plus.enums.ApiExecutionEnum}
+     * 2. requestExecution: 请求执行方式 参见{@link ApiExecutionEnum}
+     * 3. responseExecution: 响应执行方式 参见{@link ApiExecutionEnum}
      */
     @PostMapping("/demo")
     @ApiOperation("swagger2plus测试方法")
