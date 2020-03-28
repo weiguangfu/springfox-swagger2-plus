@@ -10,7 +10,7 @@
 作者邮箱: weiguangfu520@163.com
 
 ## 版本声明
-首个-前为swagger2的版本, 优先使用与swagger2相同的版本, 默认引入springfox-swagger2-plus项目时自动引入swagger2对应的版本.只需要引入springfox-swagger-ui即可.
+首个-前为swagger2的版本, 优先使用与swagger2相同的版本, 默认引入springfox-swagger2-plus项目时自动引入swagger2对应的版本. springfox-swagger-ui会自动被引入.
 
 ## 快速开始
 ### 引入Maven项目
