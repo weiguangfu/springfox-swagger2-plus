@@ -6,7 +6,7 @@ import springfox.documentation.schema.ModelReference;
 
 import java.util.Objects;
 
-public class ModelRefFactory {
+public final class ModelRefFactory {
 
     public static Optional<ModelReference> newInstance(ModelReference oldModelReference) {
         if (Objects.isNull(oldModelReference)) {

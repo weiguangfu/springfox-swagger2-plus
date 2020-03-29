@@ -7,7 +7,7 @@ import springfox.documentation.schema.ModelProperty;
 import java.util.Map;
 import java.util.Objects;
 
-public class ModelFactory {
+public final class ModelFactory {
 
     public static Optional<Model> newInstance(Model oldModel, String id, String name){
         if (Objects.isNull(oldModel)) {
