@@ -118,8 +118,8 @@ public class Swagger2Plus {
 ```
 
 ### 增强效果如下
-![img](image/effect/Swagger2Plus_1.png)
-![img](image/effect/Swagger2Plus_2.png)
+![img](image/effect/Swagger2Plus_2.7.0_1.png)
+![img](image/effect/Swagger2Plus_2.7.0_2.png)
 
 
 ## 声明
