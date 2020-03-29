@@ -11,10 +11,11 @@ import cn.weiguangfu.swagger2.plus.enums.ApiModelTypeEnum;
 public interface ModelNameManager {
     /**
      * 获取增强后模板名称
+     * @param uniqueid 唯一标记
      * @param path 请求路径
      * @param apiModelTypeEnum 参数模板类型
      * @param originalModelName 原模板名称
      * @return 增强后模板名称
      */
-    String getModelPlusName(String path, ApiModelTypeEnum apiModelTypeEnum, String originalModelName);
+    String getModelPlusName(String path, String uniqueid, ApiModelTypeEnum apiModelTypeEnum, String originalModelName);
 }
