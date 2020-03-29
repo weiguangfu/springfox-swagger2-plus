@@ -13,6 +13,7 @@ public final class ModelFactory {
         if (Objects.isNull(oldModel)) {
             Optional.absent();
         }
+
         // 创建新的对象模型
         Model newModel = new Model(id,
                 name,
@@ -23,7 +24,8 @@ public final class ModelFactory {
                 oldModel.getBaseModel(),
                 oldModel.getDiscriminator(),
                 oldModel.getSubTypes(),
-                oldModel.getExample());
+                oldModel.getExample(),
+                oldModel.getXml());
         return Optional.of(newModel);
     }
 
@@ -43,7 +45,8 @@ public final class ModelFactory {
                 oldModel.getBaseModel(),
                 oldModel.getDiscriminator(),
                 oldModel.getSubTypes(),
-                oldModel.getExample());
+                oldModel.getExample(),
+                oldModel.getXml());
         return Optional.of(newCheckModel);
     }
 }

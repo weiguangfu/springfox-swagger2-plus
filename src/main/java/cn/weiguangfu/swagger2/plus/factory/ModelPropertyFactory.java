@@ -11,6 +11,7 @@ public final class ModelPropertyFactory {
         if (Objects.isNull(oldModelProperty)) {
             return Optional.absent();
         }
+
         ModelProperty newModelProperty = new ModelProperty(oldModelProperty.getName(),
                 oldModelProperty.getType(),
                 oldModelProperty.getQualifiedType(),
@@ -18,10 +19,13 @@ public final class ModelPropertyFactory {
                 oldModelProperty.isRequired(),
                 oldModelProperty.isHidden(),
                 oldModelProperty.isReadOnly(),
+                oldModelProperty.isAllowEmptyValue(),
                 oldModelProperty.getDescription(),
                 oldModelProperty.getAllowableValues(),
                 oldModelProperty.getExample(),
                 oldModelProperty.getPattern(),
+                oldModelProperty.getDefaultValue(),
+                oldModelProperty.getXml(),
                 oldModelProperty.getVendorExtensions());
         return Optional.of(newModelProperty);
     }

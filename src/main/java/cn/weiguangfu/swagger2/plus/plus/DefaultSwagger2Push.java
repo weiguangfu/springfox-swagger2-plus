@@ -186,6 +186,8 @@ public class DefaultSwagger2Push implements Swagger2Push {
                 parameter.getParamType(),
                 parameter.getParamAccess(),
                 parameter.isHidden(),
+                parameter.getPattern(),
+                parameter.getCollectionFormat(),
                 parameter.getVendorExtentions());
     }
 
