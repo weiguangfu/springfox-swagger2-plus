@@ -180,6 +180,7 @@ public class DefaultSwagger2Push implements Swagger2Push {
                 parameter.getDefaultValue(),
                 parameter.isRequired(),
                 parameter.isAllowMultiple(),
+                parameter.isAllowEmptyValue(),
                 enhanceModelReference(enhanceParameter, ApiModelTypeEnum.REQUEST, parameter.getModelRef()),
                 parameter.getType(),
                 parameter.getAllowableValues(),
@@ -188,6 +189,9 @@ public class DefaultSwagger2Push implements Swagger2Push {
                 parameter.isHidden(),
                 parameter.getPattern(),
                 parameter.getCollectionFormat(),
+                parameter.getOrder(),
+                parameter.getScalarExample(),
+                parameter.getExamples(),
                 parameter.getVendorExtentions());
     }
 

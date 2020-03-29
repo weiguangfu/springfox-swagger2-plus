@@ -17,7 +17,7 @@
 
     <properties>
         <project.version>-1-beta1</project.version>
-        <swagger.version>2.8.0</swagger.version>
+        <swagger.version>2.9.1</swagger.version>
         <java.version>1.8</java.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
