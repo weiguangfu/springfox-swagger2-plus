@@ -1,16 +1,21 @@
 package cn.weiguangfu.swagger2.plus.plus;
 
-import cn.weiguangfu.swagger2.plus.annotation.*;
-import cn.weiguangfu.swagger2.plus.enums.ApiExecutionEnum;
+import cn.weiguangfu.swagger2.plus.annotation.ApiGroup;
+import cn.weiguangfu.swagger2.plus.annotation.ApiPlus;
 import cn.weiguangfu.swagger2.plus.enums.ApiModelTypeEnum;
 import cn.weiguangfu.swagger2.plus.enums.ResponseStatusEnum;
 import cn.weiguangfu.swagger2.plus.factory.ModelFactory;
 import cn.weiguangfu.swagger2.plus.factory.ModelPropertyFactory;
 import cn.weiguangfu.swagger2.plus.factory.ModelRefFactory;
 import cn.weiguangfu.swagger2.plus.factory.OperationFactory;
-import cn.weiguangfu.swagger2.plus.util.ObjectUtil;
+import cn.weiguangfu.swagger2.plus.filter.FilterField;
+import cn.weiguangfu.swagger2.plus.filter.GroupFilterField;
+import cn.weiguangfu.swagger2.plus.model.manager.ModelNameManager;
+import cn.weiguangfu.swagger2.plus.model.manager.UnderlineModelNameManager;
 import com.google.common.base.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Import;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 import springfox.documentation.schema.Model;
@@ -25,10 +30,17 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * 默认Swagger2增强对象
  * @author 魏广甫
- * @version 2.7.0-1-beta1
+ * @version 2.7.0
+ * @since 2.7.0-1-beta1
  */
 @Component
+@Import({GroupFilterField.class, UnderlineModelNameManager.class})
 public class DefaultSwagger2Push implements Swagger2Push {
+
+    @Autowired
+    private FilterField filterField;
+    @Autowired
+    private ModelNameManager modelNameManager;
 
     @Value("${swagger.push.enable:false}")
     private boolean enable;
@@ -36,7 +48,8 @@ public class DefaultSwagger2Push implements Swagger2Push {
     /**
      * 增强参数对象
      * @author 魏广甫
-     * @version 2.7.0-1-beta1
+     * @version 2.7.0
+     * @since 2.7.0-1-beta1
      */
     private class EnhanceParameter {
         /** 请求路径 */
@@ -44,12 +57,12 @@ public class DefaultSwagger2Push implements Swagger2Push {
         /** 模型定义类型 */
         private ApiModelTypeEnum modelType;
         /** 请求映射上下文 */
-        private RequestMappingContext each;
+        private RequestMappingContext requestMappingContext;
         /** SwaggerApi定义列表 */
         private Map<String, Model> models;
 
-        EnhanceParameter(RequestMappingContext each, Map<String, Model> models) {
-            this.each = each;
+        EnhanceParameter(RequestMappingContext requestMappingContext, Map<String, Model> models) {
+            this.requestMappingContext = requestMappingContext;
             this.models = models;
         }
 
@@ -73,8 +86,8 @@ public class DefaultSwagger2Push implements Swagger2Push {
             this.modelType = null;
         }
 
-        RequestMappingContext getEach() {
-            return each;
+        RequestMappingContext getRequestMappingContext() {
+            return requestMappingContext;
         }
 
         Map<String, Model> getModels() {
@@ -84,17 +97,18 @@ public class DefaultSwagger2Push implements Swagger2Push {
 
     @Override
     public List<ApiDescription> getNewApiDescriptionList(ResourceGroup resourceGroup,
-             RequestMappingContext each, Map<String, Model> models, List<ApiDescription> apiDescriptionList) {
+             RequestMappingContext requestMappingContext, Map<String, Model> models,
+                                                         List<ApiDescription> apiDescriptionList) {
 
         if (!enable || CollectionUtils.isEmpty(apiDescriptionList) || !isPlus(resourceGroup)) {
             return apiDescriptionList;
         }
 
-        if (!each.findAnnotation(ApiGroup.class).isPresent()) {
+        if (!requestMappingContext.findAnnotation(ApiGroup.class).isPresent()) {
             return apiDescriptionList;
         }
 
-        EnhanceParameter enhanceParameter = new EnhanceParameter(each, models);
+        EnhanceParameter enhanceParameter = new EnhanceParameter(requestMappingContext, models);
 
         for (ApiDescription apiDescription : apiDescriptionList) {
             List<Operation> operationList = apiDescription.getOperations();
@@ -127,7 +141,6 @@ public class DefaultSwagger2Push implements Swagger2Push {
         }
         return false;
     }
-
     private Operation enhanceOperation(EnhanceParameter enhanceParameter, Operation operation){
         OperationFactory operationFactory = OperationFactory.getOperationFactory(operation);
         // 请求参数增强
@@ -202,7 +215,8 @@ public class DefaultSwagger2Push implements Swagger2Push {
 
     private Optional<Model> getAndCreaeMtodel(EnhanceParameter enhanceParameter, String type){
         Map<String, Model> models = enhanceParameter.getModels();
-        String newDefinitionsKey = getTypeName(enhanceParameter, type);
+        String newDefinitionsKey
+                = modelNameManager.getModelPlusName(enhanceParameter.getPath(), enhanceParameter.getModelType(), type);
         Model newDefinitionsModel = models.get(newDefinitionsKey);
         // 原定义列表中没有此定义
         if (Objects.isNull(newDefinitionsModel)) {
@@ -234,7 +248,8 @@ public class DefaultSwagger2Push implements Swagger2Push {
         if (!CollectionUtils.isEmpty(oldPropertieMap)) {
             Class<?> erasedTypeClass = oldModel.getType().getErasedType();
             for (Map.Entry<String, ModelProperty> oldModelPropertyEntry : oldPropertieMap.entrySet()) {
-                if (isSkipProperty(enhanceParameter, erasedTypeClass, oldModelPropertyEntry.getKey())) {
+                if (filterField.isFilterField(enhanceParameter.getRequestMappingContext(),
+                        enhanceParameter.getModelType(), erasedTypeClass, oldModelPropertyEntry.getKey())) {
                     continue;
                 }
                 ModelProperty newModelProperty
@@ -249,48 +264,6 @@ public class DefaultSwagger2Push implements Swagger2Push {
             }
         }
         return newModelOptional;
-    }
-
-    /**
-     * 判断是否跳过字段
-     * @return true: 跳过, false: 不跳过
-     */
-    private boolean isSkipProperty(EnhanceParameter enhanceParameter, Class<?> erasedTypeClass, String fieldName) {
-        RequestMappingContext each = enhanceParameter.getEach();
-        if (!each.findAnnotation(ApiGroup.class).isPresent()) {
-            return false;
-        }
-        ApiGroup apiGroup = each.findAnnotation(ApiGroup.class).get();
-        Class<?>[] apiGroups = apiGroup.groups();
-        // 请求包含处理
-        if (Objects.equals(enhanceParameter.getModelType(), ApiModelTypeEnum.REQUEST)
-                && Objects.equals(apiGroup.requestExecution(), ApiExecutionEnum.INCLUDE)) {
-            ApiRequestInclude apiRequestInclude
-                    = ObjectUtil.getFieldAnnotation(erasedTypeClass, fieldName, ApiRequestInclude.class);
-            return Objects.isNull(apiRequestInclude)
-                    || !ObjectUtil.isSingleEquals(apiRequestInclude.groups(), apiGroups);
-            // 请求排除处理
-        } else if (Objects.equals(enhanceParameter.getModelType(), ApiModelTypeEnum.REQUEST)
-                && Objects.equals(apiGroup.requestExecution(), ApiExecutionEnum.EXCLUDE)) {
-            ApiRequestExclude apiRequestExclude
-                    = ObjectUtil.getFieldAnnotation(erasedTypeClass, fieldName, ApiRequestExclude.class);
-            return Objects.nonNull(apiRequestExclude)
-                    && ObjectUtil.isSingleEquals(apiRequestExclude.groups(), apiGroups);
-            // 响应包含处理
-        } else if (Objects.equals(enhanceParameter.getModelType(), ApiModelTypeEnum.RESPONSE)
-                && Objects.equals(apiGroup.responseExecution(), ApiExecutionEnum.INCLUDE)) {
-            ApiResponseInclude apiResponseInclude
-                    = ObjectUtil.getFieldAnnotation(erasedTypeClass, fieldName, ApiResponseInclude.class);
-            return Objects.isNull(apiResponseInclude)
-                    || !ObjectUtil.isSingleEquals(apiResponseInclude.groups(), apiGroups);
-        } else if (Objects.equals(enhanceParameter.getModelType(), ApiModelTypeEnum.RESPONSE)
-                && Objects.equals(apiGroup.responseExecution(), ApiExecutionEnum.EXCLUDE)) {
-            ApiResponseExclude apiResponseExclude
-                    = ObjectUtil.getFieldAnnotation(erasedTypeClass, fieldName, ApiResponseExclude.class);
-            return Objects.nonNull(apiResponseExclude)
-                    && ObjectUtil.isSingleEquals(apiResponseExclude.groups(), apiGroups);
-        }
-        return false;
     }
 
     private ModelProperty getNewModelProperty(EnhanceParameter enhanceParameter, ModelProperty oldModelProperty) {
@@ -361,12 +334,5 @@ public class DefaultSwagger2Push implements Swagger2Push {
             }
         }
         return Optional.of(newModelReference);
-    }
-
-    private String getTypeName(EnhanceParameter enhanceParameter, String type) {
-        String path = Objects.nonNull(enhanceParameter.getPath()) ? enhanceParameter.getPath() : "";
-        ApiModelTypeEnum apiModelTypeEnum = enhanceParameter.getModelType();
-        String apiModelType = Objects.nonNull(apiModelTypeEnum) ? apiModelTypeEnum.getModelType() : "";
-        return path.replace("/", "_") + "_" + apiModelType + "_" + type;
     }
 }
