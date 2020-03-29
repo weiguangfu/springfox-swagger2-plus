@@ -10,8 +10,8 @@ import cn.weiguangfu.swagger2.plus.factory.ModelRefFactory;
 import cn.weiguangfu.swagger2.plus.factory.OperationFactory;
 import cn.weiguangfu.swagger2.plus.filter.FilterField;
 import cn.weiguangfu.swagger2.plus.filter.GroupFilterField;
+import cn.weiguangfu.swagger2.plus.model.manager.CompletePathModelNameManager;
 import cn.weiguangfu.swagger2.plus.model.manager.ModelNameManager;
-import cn.weiguangfu.swagger2.plus.model.manager.UnderlineModelNameManager;
 import com.google.common.base.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -34,7 +34,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @since 2.7.0-1-beta1
  */
 @Component
-@Import({GroupFilterField.class, UnderlineModelNameManager.class})
+@Import({GroupFilterField.class, CompletePathModelNameManager.class})
 public class DefaultSwagger2Push implements Swagger2Push {
 
     @Autowired
@@ -54,6 +54,8 @@ public class DefaultSwagger2Push implements Swagger2Push {
     private class EnhanceParameter {
         /** 请求路径 */
         private String path;
+        /** 请求方式 */
+        private String uniqueid;
         /** 模型定义类型 */
         private ApiModelTypeEnum modelType;
         /** 请求映射上下文 */
@@ -72,6 +74,14 @@ public class DefaultSwagger2Push implements Swagger2Push {
 
         void setPath(String path) {
             this.path = path;
+        }
+
+        public String getUniqueid() {
+            return uniqueid;
+        }
+
+        public void setUniqueid(String uniqueid) {
+            this.uniqueid = uniqueid;
         }
 
         ApiModelTypeEnum getModelType() {
@@ -115,8 +125,9 @@ public class DefaultSwagger2Push implements Swagger2Push {
             if (CollectionUtils.isEmpty(operationList)) {
                 continue;
             }
+            enhanceParameter.setPath(apiDescription.getPath());
             for (Operation operation : operationList) {
-                enhanceParameter.setPath(apiDescription.getPath());
+                enhanceParameter.setUniqueid(operation.getUniqueId());
                 enhanceOperation(enhanceParameter, operation);
             }
         }
@@ -215,8 +226,10 @@ public class DefaultSwagger2Push implements Swagger2Push {
 
     private Optional<Model> getAndCreaeMtodel(EnhanceParameter enhanceParameter, String type){
         Map<String, Model> models = enhanceParameter.getModels();
-        String newDefinitionsKey
-                = modelNameManager.getModelPlusName(enhanceParameter.getPath(), enhanceParameter.getModelType(), type);
+        String path = enhanceParameter.getPath();
+        String uniqueid = enhanceParameter.getUniqueid();
+        ApiModelTypeEnum modelType = enhanceParameter.getModelType();
+        String newDefinitionsKey = modelNameManager.getModelPlusName(path, uniqueid, modelType, type);
         Model newDefinitionsModel = models.get(newDefinitionsKey);
         // 原定义列表中没有此定义
         if (Objects.isNull(newDefinitionsModel)) {
