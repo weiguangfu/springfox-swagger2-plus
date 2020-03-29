@@ -10,7 +10,8 @@ import java.lang.annotation.Target;
 /**
  * API分组
  * @author 魏广甫
- * @version 2.7.0-1-beta1
+ * @version 2.7.0
+ * @since 2.7.0-1-beta1
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)

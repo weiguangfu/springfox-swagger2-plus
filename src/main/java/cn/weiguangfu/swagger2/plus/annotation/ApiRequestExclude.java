@@ -8,7 +8,8 @@ import java.lang.annotation.Target;
 /**
  * API排除请求分组字段定义注解
  * @author 魏广甫
- * @version 2.7.0-1-beta1
+ * @version 2.7.0
+ * @since 2.7.0-1-beta1
  */
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)

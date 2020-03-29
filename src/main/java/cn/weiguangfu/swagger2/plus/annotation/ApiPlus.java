@@ -5,7 +5,8 @@ import java.lang.annotation.*;
 /**
  * API增强注解, 通过此注解标记请求类(Controller)是否被增强
  * @author 魏广甫
- * @version 2.7.0-1-beta1
+ * @version 2.7.0
+ * @since 2.7.0-1-beta1
  */
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)

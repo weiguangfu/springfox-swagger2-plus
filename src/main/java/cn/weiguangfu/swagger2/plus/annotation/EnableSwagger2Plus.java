@@ -9,7 +9,8 @@ import java.lang.annotation.*;
 /**
  * 开启springfox-swagger2-plus, 同时会开启swagger2.
  * @author 魏广甫
- * @version 2.7.0-1-beta1
+ * @version 2.7.0
+ * @since 2.7.0-1-beta1
  */
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)

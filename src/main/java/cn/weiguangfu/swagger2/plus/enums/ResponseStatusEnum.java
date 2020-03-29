@@ -3,7 +3,8 @@ package cn.weiguangfu.swagger2.plus.enums;
 /**
  * 响应状态码枚举类
  * @author 魏广甫
- * @version 2.7.0-1-beta1
+ * @version 2.7.0
+ * @since 2.7.0-1-beta1
  */
 public enum ResponseStatusEnum {
 
