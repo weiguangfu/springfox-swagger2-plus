@@ -1,3 +1,6 @@
+### 2.7.0-1-beta4, 2.8.0-1-beta2, 2.9.2-1-beta2, 2.9.1-1-beta2
+* 修改参数中有层级管理(继承)时报错问题.
+
 ### 2.7.0-1-beta2
 * 项目加入Travis-CI持续集成.
 * 项目源码路径由com.weiguangfu.swagger2.push变更为cn.weiguangfu.swagger2.push, 与groupId保持一致.
