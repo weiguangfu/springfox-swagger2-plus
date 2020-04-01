@@ -3,8 +3,8 @@
 作者: 魏广甫 
 
 
-[![Build Status](https://travis-ci.org/weiguangfu/springfox-swagger2-plus.svg?branch=2.8.0-1-beta1)](https://travis-ci.org/weiguangfu/springfox-swagger2-plus)
-[![Maven central](https://maven-badges.herokuapp.com/maven-central/cn.weiguangfu/springfox-swagger2-plus/badge.svg)](https://search.maven.org/artifact/cn.weiguangfu/springfox-swagger2-plus/2.8.0-1-beta1/jar)
+[![Build Status](https://travis-ci.org/weiguangfu/springfox-swagger2-plus.svg?branch=2.8.0-1-beta2)](https://travis-ci.org/weiguangfu/springfox-swagger2-plus)
+[![Maven central](https://maven-badges.herokuapp.com/maven-central/cn.weiguangfu/springfox-swagger2-plus/badge.svg)](https://search.maven.org/artifact/cn.weiguangfu/springfox-swagger2-plus/2.8.0-1-beta2/jar)
 [![License](http://img.shields.io/:license-apache-brightgreen.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
 
 作者邮箱: weiguangfu520@163.com
@@ -18,7 +18,7 @@
 <dependency>
    <groupId>cn.weiguangfu</groupId>
    <artifactId>springfox-swagger2-plus</artifactId>
-   <version>2.8.0-1-beta1</version>
+   <version>2.8.0-1-beta2</version>
 </dependency>
 ```
 
@@ -38,7 +38,7 @@ public class Swagger2Config {
                         .title("增强开源测试")
                         .description("测试增强API是否可用")
                         .termsOfServiceUrl("")
-                        .version("2.8.0-1-beta1")
+                        .version("2.8.0-1-beta2")
                         .build())
                 .directModelSubstitute(Byte.class, Integer.class)
                 .select()
