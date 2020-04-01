@@ -4,7 +4,6 @@ package cn.weiguangfu.swagger2.plus.util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
-import springfox.documentation.service.Operation;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
