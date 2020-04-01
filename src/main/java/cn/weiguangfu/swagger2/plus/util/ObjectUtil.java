@@ -15,32 +15,49 @@ public final class ObjectUtil {
 
     private ObjectUtil(){}
 
-    public static void setFieldValue(Operation operation, String fieldName, Object fieldValue){
-        if (Objects.isNull(operation) || StringUtils.isEmpty(fieldName)) {
+    public static void setFieldValue(Object object, String fieldName, Object fieldValue){
+        if (Objects.isNull(object) || StringUtils.isEmpty(fieldName)) {
             return;
         }
-        try {
-            Class<? extends Operation> clazz = operation.getClass();
-            Field parameters = clazz.getDeclaredField(fieldName);
-            parameters.setAccessible(true);
-            parameters.set(operation, fieldValue);
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            logger.error("ObjectUtil setFieldValue error, fieldName=" + fieldName
-                    + ", fieldValue=" + fieldValue + ", error: ", e);
-        }
+
+        Class<?> suppclass = object.getClass();
+        do {
+            try {
+                Field[] parameterList = suppclass.getDeclaredFields();
+                if (ArrayUtil.isNotEmpty(parameterList)) {
+                    for (Field parameter : parameterList) {
+                        if (Objects.equals(fieldName, parameter.getName())) {
+                            parameter.setAccessible(true);
+                            parameter.set(object, fieldValue);
+                            break;
+                        }
+                    }
+                }
+            } catch (IllegalAccessException e) {
+                logger.debug("ObjectUtil setFieldValue error, fieldName=" + fieldName
+                        + ", fieldValue=" + fieldValue + ", error: " + e.getMessage());
+            }
+            suppclass = suppclass.getSuperclass();
+        } while (Objects.nonNull(suppclass));
     }
 
     public static <T extends Annotation> T getFieldAnnotation(Class<?> clazz, String fieldName, Class<T> annotationClass) {
         if (Objects.isNull(clazz)) {
             return null;
         }
-        try {
-            Field declaredField = clazz.getDeclaredField(fieldName);
-            return declaredField.getAnnotation(annotationClass);
-        } catch (NoSuchFieldException e) {
-            logger.error("ObjectUtil getAnnotation error, clazz=" + clazz
-                    + ", fieldName=" + fieldName + ", error: ", e);
-        }
+
+        do {
+            Field[] parameterList = clazz.getDeclaredFields();
+            if (ArrayUtil.isNotEmpty(parameterList)) {
+                for (Field parameter : parameterList) {
+                    if (Objects.equals(fieldName, parameter.getName())) {
+                        return parameter.getAnnotation(annotationClass);
+                    }
+                }
+            }
+            clazz = clazz.getSuperclass();
+        } while (Objects.nonNull(clazz));
+
         return null;
     }
 
