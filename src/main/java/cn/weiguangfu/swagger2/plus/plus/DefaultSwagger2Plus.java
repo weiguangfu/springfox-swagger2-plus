@@ -2,6 +2,7 @@ package cn.weiguangfu.swagger2.plus.plus;
 
 import cn.weiguangfu.swagger2.plus.annotation.ApiGroup;
 import cn.weiguangfu.swagger2.plus.annotation.ApiPlus;
+import cn.weiguangfu.swagger2.plus.config.EnableSwaggerPlus;
 import cn.weiguangfu.swagger2.plus.enums.ApiModelTypeEnum;
 import cn.weiguangfu.swagger2.plus.enums.ResponseStatusEnum;
 import cn.weiguangfu.swagger2.plus.factory.ModelFactory;
@@ -12,6 +13,7 @@ import cn.weiguangfu.swagger2.plus.filter.FilterField;
 import cn.weiguangfu.swagger2.plus.filter.GroupFilterField;
 import cn.weiguangfu.swagger2.plus.model.manager.CompletePathModelNameManager;
 import cn.weiguangfu.swagger2.plus.model.manager.ModelNameManager;
+import cn.weiguangfu.swagger2.plus.required.GroupFieldRequired;
 import com.google.common.base.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -34,16 +36,21 @@ import java.util.concurrent.ConcurrentHashMap;
  * @since 2.7.0-1-beta1
  */
 @Component
-@Import({GroupFilterField.class, CompletePathModelNameManager.class})
-public class DefaultSwagger2Push implements Swagger2Push {
+@Import({GroupFilterField.class, GroupFieldRequired.class, EnableSwaggerPlus.class, CompletePathModelNameManager.class})
+public class DefaultSwagger2Plus implements Swagger2Plus {
 
     @Autowired
     private FilterField filterField;
     @Autowired
+    private GroupFieldRequired fieldRequired;
+    @Autowired
     private ModelNameManager modelNameManager;
 
-    @Value("${swagger.push.enable:false}")
-    private boolean enable;
+    @Autowired
+    private EnableSwaggerPlus enableSwaggerPlus;
+
+//    @Value("${swagger.push.enable:false}")
+//    private boolean enable;
 
     /**
      * 增强参数对象
@@ -110,7 +117,7 @@ public class DefaultSwagger2Push implements Swagger2Push {
              RequestMappingContext requestMappingContext, Map<String, Model> models,
                                                          List<ApiDescription> apiDescriptionList) {
 
-        if (!enable || CollectionUtils.isEmpty(apiDescriptionList) || !isPlus(resourceGroup)) {
+        if (!enableSwaggerPlus.isPlusEnable() || CollectionUtils.isEmpty(apiDescriptionList) || !isPlus(resourceGroup)) {
             return apiDescriptionList;
         }
 
@@ -265,8 +272,14 @@ public class DefaultSwagger2Push implements Swagger2Push {
                         enhanceParameter.getModelType(), erasedTypeClass, oldModelPropertyEntry.getKey())) {
                     continue;
                 }
+                boolean requestRequired = false;
+                if (Objects.equals(ApiModelTypeEnum.REQUEST, enhanceParameter.getModelType())) {
+                    requestRequired = fieldRequired.isRequestRequired(enhanceParameter.getRequestMappingContext(),
+                            erasedTypeClass, oldModelPropertyEntry.getKey());
+                }
                 ModelProperty newModelProperty
-                        = getNewModelProperty(enhanceParameter, oldModelPropertyEntry.getValue());
+                        = getNewModelProperty(enhanceParameter, oldModelPropertyEntry.getValue(), requestRequired);
+
                 newPropertieMap.put(oldModelPropertyEntry.getKey(), newModelProperty);
             }
             // 创建新的对象模型(包含所有新字段)
@@ -279,9 +292,11 @@ public class DefaultSwagger2Push implements Swagger2Push {
         return newModelOptional;
     }
 
-    private ModelProperty getNewModelProperty(EnhanceParameter enhanceParameter, ModelProperty oldModelProperty) {
+    private ModelProperty getNewModelProperty(EnhanceParameter enhanceParameter,
+                                              ModelProperty oldModelProperty, boolean requestRequired) {
         ModelProperty newModelProperty = oldModelProperty;
-        Optional<ModelProperty> newModelPropertyOptional = ModelPropertyFactory.newInstance(oldModelProperty);
+        Optional<ModelProperty> newModelPropertyOptional
+                = ModelPropertyFactory.newInstance(oldModelProperty, requestRequired);
         if (newModelPropertyOptional.isPresent()) {
             newModelProperty = newModelPropertyOptional.get();
             Optional<ModelReference> newModelReferenceOptional

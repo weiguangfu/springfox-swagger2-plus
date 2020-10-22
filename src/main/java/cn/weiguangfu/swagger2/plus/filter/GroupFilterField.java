@@ -18,7 +18,8 @@ import java.util.Objects;
 @Component
 public class GroupFilterField implements FilterField {
     @Override
-    public boolean isFilterField(RequestMappingContext requestMappingContext, ApiModelTypeEnum apiModelTypeEnum, Class<?> erasedTypeClass, String fieldName) {
+    public boolean isFilterField(RequestMappingContext requestMappingContext,
+                                 ApiModelTypeEnum apiModelTypeEnum, Class<?> erasedTypeClass, String fieldName) {
         if (!requestMappingContext.findAnnotation(ApiGroup.class).isPresent()) {
             return false;
         }

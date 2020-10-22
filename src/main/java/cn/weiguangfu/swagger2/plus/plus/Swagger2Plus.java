@@ -8,7 +8,7 @@ import springfox.documentation.spi.service.contexts.RequestMappingContext;
 import java.util.List;
 import java.util.Map;
 
-public interface Swagger2Push {
+public interface Swagger2Plus {
 
     /**
      * 获取新的API描述列表

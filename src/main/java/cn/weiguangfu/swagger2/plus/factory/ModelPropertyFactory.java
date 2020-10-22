@@ -25,4 +25,23 @@ public final class ModelPropertyFactory {
                 oldModelProperty.getVendorExtensions());
         return Optional.of(newModelProperty);
     }
+
+    public static Optional<ModelProperty> newInstance(ModelProperty oldModelProperty, boolean isRequired){
+        if (Objects.isNull(oldModelProperty)) {
+            return Optional.absent();
+        }
+        ModelProperty newModelProperty = new ModelProperty(oldModelProperty.getName(),
+                oldModelProperty.getType(),
+                oldModelProperty.getQualifiedType(),
+                oldModelProperty.getPosition(),
+                isRequired,
+                oldModelProperty.isHidden(),
+                oldModelProperty.isReadOnly(),
+                oldModelProperty.getDescription(),
+                oldModelProperty.getAllowableValues(),
+                oldModelProperty.getExample(),
+                oldModelProperty.getPattern(),
+                oldModelProperty.getVendorExtensions());
+        return Optional.of(newModelProperty);
+    }
 }

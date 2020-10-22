@@ -3,8 +3,8 @@
 作者: 魏广甫 
 
 
-[![Build Status](https://travis-ci.org/weiguangfu/springfox-swagger2-plus.svg?branch=2.7.0-1-beta4)](https://travis-ci.org/weiguangfu/springfox-swagger2-plus)
-[![Maven central](https://maven-badges.herokuapp.com/maven-central/cn.weiguangfu/springfox-swagger2-plus/badge.svg)](https://search.maven.org/artifact/cn.weiguangfu/springfox-swagger2-plus/2.7.0-1-beta4/jar)
+[![Build Status](https://travis-ci.org/weiguangfu/springfox-swagger2-plus.svg?branch=2.7.0-1)](https://travis-ci.org/weiguangfu/springfox-swagger2-plus)
+[![Maven central](https://maven-badges.herokuapp.com/maven-central/cn.weiguangfu/springfox-swagger2-plus/badge.svg)](https://search.maven.org/artifact/cn.weiguangfu/springfox-swagger2-plus/2.7.0-1/jar)
 [![License](http://img.shields.io/:license-apache-brightgreen.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
 
 作者邮箱: weiguangfu520@163.com
@@ -12,13 +12,16 @@
 ## 版本声明
 首个-前为swagger2的版本, 优先使用与swagger2相同的版本, 默认引入springfox-swagger2-plus项目时自动引入swagger2对应的版本. springfox-swagger-ui会自动被引入.
 
+## 相关文档
+* [更新记录](update.md)
+
 ## 快速开始
 ### 引入Maven项目
 ```
 <dependency>
    <groupId>cn.weiguangfu</groupId>
    <artifactId>springfox-swagger2-plus</artifactId>
-   <version>2.7.0-1-beta4</version>
+   <version>2.7.0-1</version>
 </dependency>
 ```
 
@@ -38,7 +41,7 @@ public class Swagger2Config {
                         .title("增强开源测试")
                         .description("测试增强API是否可用")
                         .termsOfServiceUrl("")
-                        .version("2.7.0-1-beta4")
+                        .version("2.7.0-1")
                         .build())
                 .directModelSubstitute(Byte.class, Integer.class)
                 .select()
@@ -53,9 +56,9 @@ public class Swagger2Config {
 * 此配置为了适应配置文件方式的profile, 可以配置停用线上swagger2的增强
 ```
 # 此配置标志着开启增强, 目的是为了可以屏蔽线上Swagger2增强.
-# 不编辑此配置或者值为enable: false则不开启Swagger2增强.
+# 不编辑此配置或者值为enable: false, 则不开启Swagger2增强.
 swagger:
-  push:
+  plus:
     enable: true
 ```
 
@@ -96,6 +99,7 @@ public class Swagger2PlusController {
 * @ApiRequestExclude 请求排除配置, @ApiGroup中requestExecution配置为排除(ApiExecutionEnum.EXCLUDE)时, 此注解生效
 * @ApiResponseInclude 响应包含配置, @ApiGroup中responseExecution配置为包含(ApiExecutionEnum.INCLUDE)时, 此注解生效
 * @ApiResponseExclude 响应排除配置, @ApiGroup中responseExecution配置为排除(ApiExecutionEnum.EXCLUDE)时, 此注解生效
+* @ApiRequestFieldRequired 请求字段必填注解, 使用@ApiGroup修饰的接口(分组的接口)下, 使用此注解可以表示指定分组使用请求字段是否必填. 注: 此字段会忽略@ApiModelProperty的required属性, 优先@ApiRequestFieldRequired确定字段是否必填.
 ```
 @ApiModel("Swagger2增强对象")
 public class Swagger2Plus {
@@ -103,6 +107,7 @@ public class Swagger2Plus {
     @ApiModelProperty("名称")
     @ApiRequestInclude(groups = {Swagger2PlusGroups.Demo.class})
     @ApiResponseExclude(groups = {Swagger2PlusGroups.Demo.class})
+    @ApiRequestFieldRequired(groups = {Swagger2PlusGroups.Demo.class})
     private String name;
 
     @ApiModelProperty("版本")

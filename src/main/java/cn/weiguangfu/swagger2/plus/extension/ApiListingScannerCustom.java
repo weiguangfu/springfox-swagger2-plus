@@ -1,7 +1,7 @@
 package cn.weiguangfu.swagger2.plus.extension;
 
-import cn.weiguangfu.swagger2.plus.plus.DefaultSwagger2Push;
-import cn.weiguangfu.swagger2.plus.plus.Swagger2Push;
+import cn.weiguangfu.swagger2.plus.plus.DefaultSwagger2Plus;
+import cn.weiguangfu.swagger2.plus.plus.Swagger2Plus;
 import com.google.common.base.Joiner;
 import com.google.common.base.Predicate;
 import com.google.common.base.Splitter;
@@ -33,13 +33,13 @@ import static springfox.documentation.spi.service.contexts.Orderings.methodCompa
 import static springfox.documentation.spi.service.contexts.Orderings.resourceGroupComparator;
 
 @Primary
-@Import(DefaultSwagger2Push.class)
+@Import(DefaultSwagger2Plus.class)
 //@ComponentScan(basePackages = {"cn.weiguangfu.swagger2.plus.plus"})
 @SuppressWarnings("all")
 public class ApiListingScannerCustom extends ApiListingScanner {
 
     @Autowired
-    private Swagger2Push swagger2Push;
+    private Swagger2Plus swagger2Push;
 
     private final ApiDescriptionReader apiDescriptionReader;
     private final ApiModelReader apiModelReader;
