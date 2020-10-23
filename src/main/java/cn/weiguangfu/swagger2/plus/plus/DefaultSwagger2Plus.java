@@ -16,7 +16,6 @@ import cn.weiguangfu.swagger2.plus.model.manager.ModelNameManager;
 import cn.weiguangfu.swagger2.plus.required.GroupFieldRequired;
 import com.google.common.base.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Import;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
